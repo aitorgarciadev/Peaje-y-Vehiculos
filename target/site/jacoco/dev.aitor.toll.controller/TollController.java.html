@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TollController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">dev.aitor.toll.controller</a> &gt; <span class="el_source">TollController.java</span></div><h1>TollController.java</h1><pre class="source lang-java linenums">package dev.aitor.toll.controller;
+
+import dev.aitor.toll.model.Car;
+import dev.aitor.toll.model.Motorcycle;
+import dev.aitor.toll.model.Truck;
+import dev.aitor.toll.model.Vehicle;
+import dev.aitor.toll.service.TollService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/toll&quot;)
+<span class="fc" id="L15">public class TollController {</span>
+
+    @Autowired
+    private TollService tollService;
+
+    @PostMapping(&quot;/car&quot;)
+    public void addCar(@RequestParam String licensePlate) {
+<span class="fc" id="L22">        Vehicle car = new Car(licensePlate);</span>
+<span class="fc" id="L23">        tollService.processVehicle(car);</span>
+<span class="fc" id="L24">    }</span>
+
+    @PostMapping(&quot;/motorcycle&quot;)
+    public void addMotorcycle(@RequestParam String licensePlate) {
+<span class="fc" id="L28">        Vehicle motorcycle = new Motorcycle(licensePlate);</span>
+<span class="fc" id="L29">        tollService.processVehicle(motorcycle);</span>
+<span class="fc" id="L30">    }</span>
+
+    @PostMapping(&quot;/truck&quot;)
+    public void addTruck(@RequestParam String licensePlate, @RequestParam int axles) {
+<span class="fc" id="L34">        Vehicle truck = new Truck(licensePlate, axles);</span>
+<span class="fc" id="L35">        tollService.processVehicle(truck);</span>
+<span class="fc" id="L36">    }</span>
+
+    @GetMapping(&quot;/total&quot;)
+    public double getTotalCollected() {
+<span class="fc" id="L40">        return tollService.getTollStation().getTotalCollected();</span>
+    }
+
+    @GetMapping(&quot;/vehicles&quot;)
+    public List&lt;Vehicle&gt; getVehicles() {
+<span class="fc" id="L45">        return tollService.getTollStation().getVehicles();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
