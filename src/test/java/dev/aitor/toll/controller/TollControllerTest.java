@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify; // Asegúrate de importar verify
+import static org.mockito.Mockito.verify;
 
 public class TollControllerTest {
 
@@ -37,7 +37,6 @@ public class TollControllerTest {
         doNothing().when(tollService).processVehicle(any(Car.class));
         tollController.addCar("CAR123");
 
-        // Verifica que processVehicle haya sido llamado con un Car
         verify(tollService).processVehicle(any(Car.class));
     }
 
@@ -46,7 +45,6 @@ public class TollControllerTest {
         doNothing().when(tollService).processVehicle(any(Motorcycle.class));
         tollController.addMotorcycle("MOTO123");
 
-        // Verifica que processVehicle haya sido llamado con un Motorcycle
         verify(tollService).processVehicle(any(Motorcycle.class));
     }
 
@@ -55,14 +53,13 @@ public class TollControllerTest {
         doNothing().when(tollService).processVehicle(any(Truck.class));
         tollController.addTruck("TRUCK123", 4);
 
-        // Verifica que processVehicle haya sido llamado con un Truck
         verify(tollService).processVehicle(any(Truck.class));
     }
 
     @Test
     public void testGetTotalCollected() {
         TollStation mockTollStation = new TollStation("Main Toll", "City");
-        mockTollStation.processVehicle(new Car("CAR123")); // Ajusta para tener un vehículo procesado
+        mockTollStation.processVehicle(new Car("CAR123")); 
 
         when(tollService.getTollStation()).thenReturn(mockTollStation);
 
@@ -74,7 +71,7 @@ public class TollControllerTest {
     public void testGetVehicles() {
         Vehicle car = new Car("CAR123");
         TollStation mockTollStation = new TollStation("Main Toll", "City");
-        mockTollStation.processVehicle(car); // Procesa el vehículo para que esté en la lista
+        mockTollStation.processVehicle(car);
 
         when(tollService.getTollStation()).thenReturn(mockTollStation);
 
